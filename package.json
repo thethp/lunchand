@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/thethp/lunchand",
   "dependencies": {
-    "mongodb": "~1.4.2"
+    "mongodb": "~1.4.2",
+    "express": "~4.0.0"
   }
 }
