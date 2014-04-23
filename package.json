@@ -1,0 +1,29 @@
+{
+  "name": "lunchand",
+  "version": "0.1.0",
+  "description": "A tool for comedians to eat lunch with other comedians",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thethp/lunchand.git"
+  },
+  "keywords": [
+    "lunch",
+    "lunch",
+    "and",
+    "yes",
+    "and",
+    "improv",
+    "improvisation",
+    "comedians"
+  ],
+  "author": "Todd H. Page",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thethp/lunchand/issues"
+  },
+  "homepage": "https://github.com/thethp/lunchand",
+  "dependencies": {
+    "mongodb": "~1.4.2"
+  }
+}
