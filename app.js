@@ -1,15 +1,10 @@
 //Declarations
 var express = require('express'),
-    stations = require('.talktomongo'),
+    stations = require('./routes/talktomongo'),
     app = express();
 
 //Configure app
-app.configure(function () {
-    app.use(express.logger('dev'));
-    app.use(express.bodyParser());
-    app.use(allowCrossDomain);
-    app.use(express.static(__dirname + '/public'));
-});
+app.use(express.static(__dirname + '/public'));
 
 //Actually show the server
 app.listen(80);
