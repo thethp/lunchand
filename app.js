@@ -1,6 +1,6 @@
 //Declarations
 var express = require('express'),
-    stations = require('./routes/talktomongo'),
+    lunches = require('./routes/talktomongo'),
     app = express();
 
 //Configure app

@@ -3,7 +3,8 @@ var mongo = require('mongodb'),
     Server = mongo.Server,
     Db = mongo.Db,
     server = new Server('localhost', 27017, {auto_reconnect: true}),
-    db = new Db('lunchand', server);
+    db = new Db('lunchand', server),
+    passwordHash = require('password-hash');
 
 //Open database
 db.open(function(_err, _db) {
@@ -24,9 +25,12 @@ db.open(function(_err, _db) {
 	console.log("Error Connecting to Station DB: " + _err);
     }
 });
-/*
+
 addUser = function(_name, _pwd, _officeLocation, _teams, _img, _secretlyAShark) {
-    db.collection('lunchers', function(_err, _collection) { 
+    console.log(_pwd);
+    _pwd = passwordHash.generate(_pwd);
+    console.log(_pwd);
+    db.collection('lunchers', function(_err, _collection) {  
 	if(_err) {
 	    console.log("Shark attack because: "+_err);
 	} else {
@@ -37,7 +41,7 @@ addUser = function(_name, _pwd, _officeLocation, _teams, _img, _secretlyAShark) 
 		teams: _teams,
 	        shark: _secretlyAShark
 	    };
-	    collection.insert(luncher, {safe: true}, function(_err, _result) {
+	    db.collection('lunchers').insert(luncher, {safe: true}, function(_err, _result) {
 		if(_err) {
 		    console.log("Bad Jaws! He attacked a luncher again! " + _err);
 		} else {
@@ -46,7 +50,4 @@ addUser = function(_name, _pwd, _officeLocation, _teams, _img, _secretlyAShark) 
 	    });
 	}
     });
-}
-
-addUser("test1", "pppppp", "DTX", "Legitimo", "ll", "Y");
-*/
+}("test1", "pppppp", "DTX", "Legitimo", "ll", "Y");
