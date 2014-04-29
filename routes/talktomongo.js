@@ -26,7 +26,7 @@ db.open(function(_err, _db) {
     }
 });
 
-addUser = function(_name, _pwd, _officeLocation, _teams, _img, _secretlyAShark) {
+var addUser = function(_name, _pwd, _officeLocation, _teams, _img, _secretlyAShark) {
     console.log(_pwd);
     _pwd = passwordHash.generate(_pwd);
     console.log(_pwd);
@@ -50,4 +50,4 @@ addUser = function(_name, _pwd, _officeLocation, _teams, _img, _secretlyAShark) 
 	    });
 	}
     });
-}("test1", "pppppp", "DTX", "Legitimo", "ll", "Y");
+};
