@@ -26,26 +26,26 @@ db.open(function(_err, _db) {
     }
 });
 
-var addUser = function(_name, _pwd, _officeLocation, _teams, _img, _secretlyAShark) {
-    console.log(_pwd);
-    _pwd = passwordHash.generate(_pwd);
-    console.log(_pwd);
+exports.register = function(_data, _callback) {
+    console.log(_data.password);
+    _data.password = passwordHash.generate(_data.password);
+    console.log(_data.password);
     db.collection('lunchers', function(_err, _collection) {  
 	if(_err) {
 	    console.log("Shark attack because: "+_err);
 	} else {
 	    var luncher = {
-		username: _name,
-		pwd: _pwd,
-		officeLocation: _officeLocation,
-		teams: _teams,
-	        shark: _secretlyAShark
+		username: _data.username,
+		pwd: _data.password,
+		officeLocation: _data.officeLocation,
+		teams: _data.teams,
 	    };
 	    db.collection('lunchers').insert(luncher, {safe: true}, function(_err, _result) {
 		if(_err) {
 		    console.log("Bad Jaws! He attacked a luncher again! " + _err);
 		} else {
 		    console.log("Wild success inserting luncher");
+		    _callback({success: true});
 		}
 	    });
 	}

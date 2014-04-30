@@ -24,12 +24,18 @@ io.sockets.on('connection', function (socket) {
     socket.on('login', function (data) {
 	lunches.login(data,loginSuccessFail);
     });
-
     loginSuccessFail = function(_data) {
 	if(_data.success == true) {
 	    //authorize                                                                                                         
 	} else {
             socket.emit('loginFailed', _data);
 	}
+    }
+
+    socket.on('register', function(data) {
+	lunches.register(data, registerCallback);
+    });
+    registerCallback = function(_data) {
+	console.log("Registration must have worked I guess!");
     }
 });
