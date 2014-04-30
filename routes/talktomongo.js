@@ -51,3 +51,20 @@ var addUser = function(_name, _pwd, _officeLocation, _teams, _img, _secretlyASha
 	}
     });
 };
+
+exports.login = function(data) {
+    console.log(data);
+   db.collection('lunchers', function(_err, _collection) {
+       if(_err) {
+	   console.log("Sharks attacked this connection! " + _err);
+       } else {
+	   db.collection('lunchers').findOne({username: data.username}, function(_err, _item) {
+	       if(_err) {
+		   console.log("Either that person doesn't exist, or a shark ate them.");
+	       } else {
+		   console.log("Found: "+_item);
+	       }
+	   });
+       } 
+   });
+}
