@@ -20,8 +20,16 @@ server.listen(80);
 console.log("Server running at http://127.0.0.1:80/");
 
 io.sockets.on('connection', function (socket) {
-  console.log('Connected!');
-  socket.on('login', function (data) {
-    lunches.login(data);
-  });
+    console.log('Connected!');
+    socket.on('login', function (data) {
+	lunches.login(data,loginSuccessFail);
+    });
+
+    loginSuccessFail = function(_data) {
+	if(_data.success == true) {
+	    //authorize                                                                                                         
+	} else {
+            socket.emit('loginFailed', _data);
+	}
+    }
 });
