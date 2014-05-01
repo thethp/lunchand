@@ -13,12 +13,24 @@ app.use(function (req, res, next) {
         next();
     }
 );
+app.set('views', __dirname + '/views')
+app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
+app.get('/', function (req, res) {
+    res.render('index');
+});
+app.get('/login', function (req, res) {
+    res.render('login',
+	{ title : 'Home' }
+    );
+});
 
 //Actually show the server
 server.listen(80);
 console.log("Server running at http://127.0.0.1:80/");
 
+
+//Socket IO stuff
 io.sockets.on('connection', function (socket) {
     console.log('Connected!');
     socket.on('login', function (data) {

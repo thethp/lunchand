@@ -4,6 +4,27 @@ var socket = io.connect('http://eatlun.ch'),
 google.maps.event.addDomListener(window, 'load', initialize);
 function initialize() {
     officeLocation = new google.maps.places.SearchBox((document.getElementById('pac-input')));
+
+    $('.submit').on('click', function() {
+        var foo = 'test';
+        socket.emit('login', {username: $('input[name="username"]').val(), password: $('input[name="password"]').val()});
+    });
+
+    $('.register').on('click', function() {
+        console.log('register');
+	if($('input[name="password"]').val() !== $('input[name="passwordConfirm"]').val()) {
+            formError($('input[name="password"]'), "Oops! One of your passwords isn't the same as the other! Try again!");
+	} else if (officeLocation.getPlaces() == undefined) {
+            formError($('input[name="officeLocation"]'), "We really need where you are during lunch.  We won't tell ANYONE. [Honest!]");
+	} else {
+            socket.emit('register', {
+		username: $('input[name="username"]').val(),
+		password: $('input[name="password"]').val(),
+		officeLocation: $('input[name="officeLocation"]').val(),
+		teams: $('input[name="teams"]').val()
+            });
+	}
+    });
 };
 
 socket.on('loginFailed', function (_data) {
@@ -19,24 +40,3 @@ var formError = function(_field, _message) {
     _field.addClass('error');
     $('.messageField').show().html(_message);
 }
-
-$('.submit').on('click', function() {
-    var foo = 'test';
-    socket.emit('login', {username: $('input[name="username"]').val(), password: $('input[name="password"]').val()});
-});
-
-$('.register').on('click', function() {
-    console.log('register');
-    if($('input[name="password"]').val() !== $('input[name="passwordConfirm"]').val()) {
-	formError($('input[name="password"]'), "Oops! One of your passwords isn't the same as the other! Try again!");
-    } else if (officeLocation.getPlaces() == undefined) {
-	formError($('input[name="officeLocation"]'), "We really need where you are during lunch.  We won't tell ANYONE. [Honest!]");
-    } else {
-	socket.emit('register', {
-	    username: $('input[name="username"]').val(), 
-	    password: $('input[name="password"]').val(), 
-	    officeLocation: $('input[name="officeLocation"]').val(), 
-	    teams: $('input[name="teams"]').val()
-	});
-    }
-});
