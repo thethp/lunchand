@@ -26,7 +26,8 @@ io.sockets.on('connection', function (socket) {
     });
     loginSuccessFail = function(_data) {
 	if(_data.success == true) {
-	    //authorize                                                                                                         
+	    //authorize
+            console.log('logged in');
 	} else {
             socket.emit('loginFailed', _data);
 	}

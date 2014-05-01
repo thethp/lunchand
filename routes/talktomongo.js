@@ -62,7 +62,7 @@ exports.login = function(_data,_callback) {
 		   console.log('User does not exist, perhaps they were eaten by a shark!');
 		   _callback({success: false, username: true});
 	       } else {
-		   if(_item.pwd === _data.password) {
+		   if(passwordHash.verify(_data.password, _item.pwd)) {
 		       _callback({success: true});
 		   } else {
 		       _callback({success: false, username: false});
