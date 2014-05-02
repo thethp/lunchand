@@ -6,10 +6,8 @@ function initialize() {
     officeLocation = new google.maps.places.SearchBox((document.getElementById('pac-input')));
 
     $('.submit').on('click', function() {
-        var foo = 'test';
         socket.emit('login', {username: $('input[name="username"]').val(), password: $('input[name="password"]').val()});
     });
-
     $('.register').on('click', function() {
         console.log('register');
 	if($('input[name="password"]').val() !== $('input[name="passwordConfirm"]').val()) {
@@ -25,10 +23,18 @@ function initialize() {
             });
 	}
     });
+
+    $('.logout').on('click', function() {
+	$.post('/logout', function() {window.location='/';});
+    });
 };
 
-socket.on('loginFailed', function (_data) {
+socket.on('loginFailSuccesss', function (_data) {
     $('input').removeClass('error');
+    if(_data.success == true) {
+	$.post('/login', {uid: _data.userID}, function(){window.location='/';});
+	return;
+    }
     if(_data.username == true) {
 	formError($('input[name="username"]'), "That's not your username! It's not anyones!");
     } else {

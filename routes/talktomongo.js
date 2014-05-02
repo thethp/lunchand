@@ -63,7 +63,7 @@ exports.login = function(_data,_callback) {
 		   _callback({success: false, username: true});
 	       } else {
 		   if(passwordHash.verify(_data.password, _item.pwd)) {
-		       _callback({success: true});
+		       _callback({success: true, userID: _item._id});
 		   } else {
 		       _callback({success: false, username: false});
 		   }

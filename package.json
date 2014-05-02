@@ -26,6 +26,9 @@
   "dependencies": {
     "express": "~4.0.0",
     "password-hash": "~1.2.2",
-    "jade": "*"
+    "jade": "*",
+    "cookie-parser": "*",
+    "express-session": "*",
+    "body-parser": "*"
   }
 }

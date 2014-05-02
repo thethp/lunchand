@@ -3,7 +3,10 @@ var express = require('express'),
     lunches = require('./routes/talktomongo'),
     app = express(),
     server = require('http').createServer(app),
-    io = require('socket.io').listen(server);
+    io = require('socket.io').listen(server),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    bodyParser = require('body-parser');
 
 //Configure app
 app.use(function (req, res, next) {
@@ -16,19 +19,33 @@ app.use(function (req, res, next) {
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
+app.use(cookieParser());
+app.use(session({secret: 'Martin C. Brody', key: 'EatLunch'}));
+app.use(bodyParser());
+
+//Direct Pages
 app.get('/', function (req, res) {
-    res.render('index');
+    if(req.session.uid === undefined && req.query.login === "improvboston") {
+	res.render('login');
+    } else if (req.session.uid === undefined) {
+	res.render('index_unknown');
+    } else {
+	res.render('index');
+    }
 });
-app.get('/login', function (req, res) {
-    res.render('login',
-	{ title : 'Home' }
-    );
+app.post('/login', function(req, res) {
+    req.session.uid = req.body.uid;
+    res.send('200', 'Logged in');
+});
+app.post('/logout', function(req, res) {
+    console.log('Yes');
+    req.session.destroy();
+    res.send('200', 'Logged out');
 });
 
 //Actually show the server
 server.listen(80);
 console.log("Server running at http://127.0.0.1:80/");
-
 
 //Socket IO stuff
 io.sockets.on('connection', function (socket) {
@@ -37,12 +54,7 @@ io.sockets.on('connection', function (socket) {
 	lunches.login(data,loginSuccessFail);
     });
     loginSuccessFail = function(_data) {
-	if(_data.success == true) {
-	    //authorize
-            console.log('logged in');
-	} else {
-            socket.emit('loginFailed', _data);
-	}
+	socket.emit('loginFailSuccesss', _data);
     }
 
     socket.on('register', function(data) {
