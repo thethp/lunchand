@@ -3,46 +3,46 @@ var socket = io.connect('http://eatlun.ch'),
 
 google.maps.event.addDomListener(window, 'load', initialize);
 function initialize() {
-    officeLocation = new google.maps.places.SearchBox((document.getElementById('pac-input')));
+	officeLocation = new google.maps.places.SearchBox((document.getElementById('pac-input')));
+  $('.submit').on('click', function() {
+  	socket.emit('login', {username: $('input[name="username"]').val(), password: $('input[name="password"]').val()});
+  });
+  $('.register').on('click', function() {
+		if($('input[name="password"]').val() !== $('input[name="passwordConfirm"]').val()) {		
+			formError($('input[name="password"]'), "Oops! One of your passwords isn't the same as the other! Try again!");
+		} else if (officeLocation.getPlaces() == undefined) {
+			formError($('input[name="officeLocation"]'), "We really need where you are during lunch.  We won't tell ANYONE. [Honest!]");
+		} else {
+			socket.emit('register', {
+				username: $('input[name="username"]').val(),
+				password: $('input[name="password"]').val(),
+				officeLocation: $('input[name="officeLocation"]').val(),
+				teams: $('input[name="teams"]').val(),
+				longitude: officeLocation.getPlaces()[0].geometry.location.A,
+				latitude: officeLocation.getPlaces()[0].geometry.location.k
+			});
+		}
+	});
 
-    $('.submit').on('click', function() {
-        socket.emit('login', {username: $('input[name="username"]').val(), password: $('input[name="password"]').val()});
-    });
-    $('.register').on('click', function() {
-        console.log('register');
-	if($('input[name="password"]').val() !== $('input[name="passwordConfirm"]').val()) {
-            formError($('input[name="password"]'), "Oops! One of your passwords isn't the same as the other! Try again!");
-	} else if (officeLocation.getPlaces() == undefined) {
-            formError($('input[name="officeLocation"]'), "We really need where you are during lunch.  We won't tell ANYONE. [Honest!]");
-	} else {
-            socket.emit('register', {
-		username: $('input[name="username"]').val(),
-		password: $('input[name="password"]').val(),
-		officeLocation: $('input[name="officeLocation"]').val(),
-		teams: $('input[name="teams"]').val()
-            });
-	}
-    });
-
-    $('.logout').on('click', function() {
-	$.post('/logout', function() {window.location='/';});
-    });
+  $('.logout').on('click', function() {
+		$.post('/logout', function() {window.location='/';});
+  });
 };
 
 socket.on('loginFailSuccesss', function (_data) {
-    $('input').removeClass('error');
-    if(_data.success == true) {
-	$.post('/login', {uid: _data.userID}, function(){window.location='/';});
-	return;
-    }
-    if(_data.username == true) {
-	formError($('input[name="username"]'), "That's not your username! It's not anyones!");
-    } else {
-	formError($('input[name="password"]'), "Psst. Your passwords off a bit. Don't worry, it's between you and me.");
-    }
+  $('input').removeClass('error');
+  if(_data.success == true) {
+		$.post('/login', {uid: _data.userID}, function(){window.location='/';});
+		return;
+  }
+  if(_data.username == true) {
+		formError($('input[name="username"]'), "That's not your username! It's not anyones!");
+  } else {
+		formError($('input[name="password"]'), "Psst. Your passwords off a bit. Don't worry, it's between you and me.");
+  }
 });
 
 var formError = function(_field, _message) {
-    _field.addClass('error');
-    $('.messageField').show().html(_message);
+  _field.addClass('error');
+  $('.messageField').show().html(_message);
 }
