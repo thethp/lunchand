@@ -4,7 +4,7 @@ html
     title #{title} Eat Lunch!
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    h1 Let's Eat
-    .logo
-    h2 Eat lunch is currently in private beta, please check back soon!
     <button class="logout">logout</button>
+    <div class="lunchers"></div>
+  include includes
+  script(src='/scripts/findlunchers.js')

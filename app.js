@@ -25,23 +25,24 @@ app.use(bodyParser());
 
 //Direct Pages
 app.get('/', function (req, res) {
-    if(req.session.uid === undefined && req.query.login === "improvboston") {
-	res.render('login');
-    } else if (req.session.uid === undefined) {
-	res.render('index_unknown');
-    } else {
-	res.render('index');
-    }
+  if(req.session.uid === undefined && req.query.login === "improvboston") {
+		res.render('login');
+		  } else if (req.session.uid === undefined) {
+		res.render('index_unknown');
+		  } else {
+		res.render('index');
+  }
 });
 app.post('/login', function(req, res) {
-    req.session.uid = req.body.uid;
-    res.send('200', 'Logged in');
+  req.session.uid = req.body.uid;
+  res.send('200', 'Logged in');
 });
 app.post('/logout', function(req, res) {
-    console.log('Yes');
-    req.session.destroy();
-    res.send('200', 'Logged out');
+  console.log('Yes');
+  req.session.destroy();
+  res.send('200', 'Logged out');
 });
+app.post('/findLunchers', lunches.findLunchers);
 
 //Actually show the server
 server.listen(80);
@@ -56,7 +57,6 @@ io.sockets.on('connection', function (socket) {
     loginSuccessFail = function(_data) {
 	socket.emit('loginFailSuccesss', _data);
     }
-
     socket.on('register', function(data) {
 	lunches.register(data, registerCallback);
     });
