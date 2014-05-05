@@ -14,7 +14,7 @@ db.open(function(_err, _db) {
 		db.collection('lunchers', {strict: true}, function(_err, _collection) {
 	  	if(_err) {
 				console.log("Lunchers collection doesn't exist! Let's fix that!");
-				var testLuncher = {username:"username",pwd:"password",officeLocation:"Office Location",loc:[ -71.10103600000002, 42.369149 ], geoJSON: { type : "Point", "coordinates" : [ -71.10103600000002, 42.369149 ] },teams:"teams",shark: true};
+				var testLuncher = {username:"tester",pwd:"password",officeLocation:"Office Location",loc:[ -71.10103600000002, 42.369149 ], geoJSON: { type : "Point", "coordinates" : [ -71.10103600000002, 42.369149 ] },teams:"teams",bio: "I'm a shark"};
 				db.collection('lunchers', function(_err, _collection) {
 					db.collection('lunchers').insert(testLuncher, {safe:true}, function(_err, _result) {});
 					db.collection('lunchers').ensureIndex({loc: "2d" });
@@ -44,7 +44,8 @@ exports.register = function(_data, _callback) {
 				officeLocation: _data.officeLocation,
 				teams: _data.teams,
 				loc: [_data.longitude, _data.latitude],
-				geoJSON: { type : "Point" , coordinates: [ _data.longitude, _data.latitude ] }
+				geoJSON: { type : "Point" , coordinates: [ _data.longitude, _data.latitude ] },
+				bio: _data.bio
 			};
 			db.collection('lunchers').insert(luncher, {safe: true}, function(_err, _result) {
 				if(_err) {
