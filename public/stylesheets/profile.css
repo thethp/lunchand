@@ -1,0 +1,63 @@
+* {
+  box-sizing: border-box;
+  position: relative;
+  font-family: Arial, helvetica, sans-serif;
+}
+body, html {
+  background-color: #F1FCAD;
+  color: #5C493D;
+}
+.profile {
+  background-color: #FAF9F8;
+  padding: 15px;
+  height: 150px;
+  border: 5px solid #FA7F46;
+  min-width: 415px;
+  max-width: 1020px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+.profilePicture {
+  height: 110px;
+  width: 110px;
+  border: 10px solid #60C0A8;
+  background-color: #FA7F46;
+  border-radius: 100%;
+  background: url(../images/eatlunch.png) #FA7F46 no-repeat center center;
+  background-size: 80% 80%;
+  display: inline-block;
+}
+.profilePicture.hasPicture {
+  background-size: 100% 100%;
+}
+.content {
+  position: absolute;
+  left: 135px;
+  right: 15px;
+  bottom: 15px;
+  top: 15px;
+  display: inline-block;
+}
+.name {
+  color: #DE4537;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+.facebook {
+  width: 25px;
+  height: 25px;
+  background: url(../images/fb.png)  no-repeat center center;
+  background-size: 100% 100%;
+  display: inline-block;
+  border-radius: 100%;
+  margin-left: 15px;
+}
+.twitter {
+  width: 25px;
+  height: 25px;
+  background: url(../images/tw.png)  no-repeat center center;
+  background-size: 75% 75%;
+  display: inline-block;
+  border-radius: 100%;
+  margin-left: 5px;
+}

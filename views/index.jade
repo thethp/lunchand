@@ -3,8 +3,24 @@ html
   head
     title #{title} Eat Lunch!
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/profile.css')
   body
     <button class="logout">logout</button>
     <div class="lunchers"></div>
   include includes
   script(src='/scripts/findlunchers.js')
+  script(src='/externals/handlebars.js')
+  <script id="profile" type="text/x-handlebars-template">
+  .profile
+    .profilePicture
+    .content
+      .name {{username}} - 
+        span.distance {{distance}}mi
+        {{#if facebook}}
+        a.facebook(href='http://facebook.com/{{facebook}}')
+        {{/if}}
+        {{#if twitter}}
+        a.twitter(href='http://twitter.com/{{twitter}}')
+        {{/if}}
+      .bio {{bio}}
+  </script>

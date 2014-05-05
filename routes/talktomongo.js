@@ -143,5 +143,5 @@ distance = function(userLoc,otherLoc) {
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	
 	var d = R * c;
-	return d;
+	return Math.round(d*100)/100;
 }
