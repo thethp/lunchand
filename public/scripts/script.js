@@ -20,7 +20,9 @@ function initialize() {
 				teams: $('input[name="teams"]').val(),
 				longitude: officeLocation.getPlaces()[0].geometry.location.A,
 				latitude: officeLocation.getPlaces()[0].geometry.location.k,
-				bio: $('input[name="bio"]').val()
+				bio: $('input[name="bio"]').val(),
+				facebook: $('input[name="facebook"]').val(),
+				twitter: $('input[name="twitter"]').val()
 			});
 		}
 	});

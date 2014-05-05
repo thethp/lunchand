@@ -45,7 +45,9 @@ exports.register = function(_data, _callback) {
 				teams: _data.teams,
 				loc: [_data.longitude, _data.latitude],
 				geoJSON: { type : "Point" , coordinates: [ _data.longitude, _data.latitude ] },
-				bio: _data.bio
+				bio: _data.bio,
+				facebook: _data.facebook,
+				twitter: _data.twitter
 			};
 			db.collection('lunchers').insert(luncher, {safe: true}, function(_err, _result) {
 				if(_err) {
