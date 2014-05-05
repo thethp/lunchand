@@ -5,4 +5,8 @@ $(document).ready(function() {
 			$('.lunchers').append(template(obj));
 		})
 	});
+	
+	$('.logout').on('click', function() {
+		$.post('/logout', function() {window.location='/';});
+  });
 });

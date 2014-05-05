@@ -26,10 +26,6 @@ function initialize() {
 			});
 		}
 	});
-
-  $('.logout').on('click', function() {
-		$.post('/logout', function() {window.location='/';});
-  });
 };
 
 socket.on('loginFailSuccesss', function (_data) {
