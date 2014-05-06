@@ -10,7 +10,9 @@ function initialize() {
   $('.register').on('click', function() {
 		if($('input[name="password"]').val() !== $('input[name="passwordConfirm"]').val()) {		
 			formError($('input[name="password"]'), "Oops! One of your passwords isn't the same as the other! Try again!");
-		} else if (officeLocation.getPlaces() == undefined) {
+		}  else if ($('input[name="username"]').val() == "") {
+			formError($('input[name="username"]'), "Whoa there, friend.  Can't sign up without a username.");
+		}	else if (officeLocation.getPlaces() == undefined) {
 			formError($('input[name="officeLocation"]'), "We really need where you are during lunch.  We won't tell ANYONE. [Honest!]");
 		} else {
 			socket.emit('register', {
