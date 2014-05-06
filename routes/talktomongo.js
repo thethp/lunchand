@@ -49,13 +49,19 @@ exports.register = function(_data, _callback) {
 				facebook: _data.facebook,
 				twitter: _data.twitter
 			};
-			db.collection('lunchers').insert(luncher, {safe: true}, function(_err, _result) {
-				if(_err) {
-					console.log("Bad Jaws! He attacked a luncher again! " + _err);
+			db.collection('lunchers').findOne({username: _data.username}, function(_err, _item) { 
+				if(_err || _item == undefined) {
+					db.collection('lunchers').insert(luncher, {safe: true}, function(_err, _result) {
+						if(_err) {
+							console.log("Bad Jaws! He attacked a luncher again! " + _err);
+						} else {
+							console.log("Wild success inserting luncher");
+							_callback({success: true});
+						}
+					});
 				} else {
-					console.log("Wild success inserting luncher");
-					_callback({success: true});
-				}
+					_callback({success: false, username: true});
+				} 
 			});
 		}
 	});

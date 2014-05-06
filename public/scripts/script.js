@@ -41,6 +41,13 @@ socket.on('loginFailSuccesss', function (_data) {
   }
 });
 
+socket.on('registrationFail', function (_data) {
+  $('input').removeClass('error');
+  if(_data.username == true && _data.success == false) {
+		formError($('input[name="username"]'), "I'm sorry friend! Someone else took that name.  It's a nice name, but I'm sure there's another you can use!");
+  }
+})
+
 var formError = function(_field, _message) {
   _field.addClass('error');
   $('.messageField').show().html(_message);

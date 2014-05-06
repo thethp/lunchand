@@ -52,15 +52,20 @@ console.log("Server running at http://127.0.0.1:80/");
 io.sockets.on('connection', function (socket) {
     console.log('Connected!');
     socket.on('login', function (data) {
-	lunches.login(data,loginSuccessFail);
+			lunches.login(data,loginSuccessFail);
     });
-    loginSuccessFail = function(_data) {
-	socket.emit('loginFailSuccesss', _data);
+    	loginSuccessFail = function(_data) {
+			socket.emit('loginFailSuccesss', _data);
     }
     socket.on('register', function(data) {
-	lunches.register(data, registerCallback);
+			lunches.register(data, registerCallback);
     });
     registerCallback = function(_data) {
-	console.log("Registration must have worked I guess!");
+    	if(_data.success == false)
+    		{
+	    		socket.emit('registrationFail', _data);
+    		} else {
+	    		console.log("Registration must have worked I guess!");
+    		}
     }
 });
