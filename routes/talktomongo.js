@@ -32,7 +32,8 @@ db.open(function(_err, _db) {
 	}
 });
 
-exports.register = function(_data, _callback) {
+exports.register = function(req, res) {
+  var _data = req.body;
 	_data.password = passwordHash.generate(_data.password);
 	db.collection('lunchers', function(_err, _collection) {  
 		if(_err) {
@@ -43,8 +44,8 @@ exports.register = function(_data, _callback) {
 				pwd: _data.password,
 				officeLocation: _data.officeLocation,
 				teams: _data.teams,
-				loc: [_data.longitude, _data.latitude],
-				geoJSON: { type : "Point" , coordinates: [ _data.longitude, _data.latitude ] },
+				loc: [Number(_data.longitude), Number(_data.latitude)],
+				geoJSON: { type : "Point" , coordinates: [ Number(_data.longitude), Number(_data.latitude) ] },
 				bio: _data.bio,
 				facebook: _data.facebook,
 				twitter: _data.twitter
@@ -54,13 +55,14 @@ exports.register = function(_data, _callback) {
 					db.collection('lunchers').insert(luncher, {safe: true}, function(_err, _result) {
 						if(_err) {
 							console.log("Bad Jaws! He attacked a luncher again! " + _err);
+							res.send(_err);
 						} else {
 							console.log("Wild success inserting luncher");
-							_callback({success: true});
+							res.send({success: true});
 						}
 					});
 				} else {
-					_callback({success: false, username: true});
+					res.send({success: false, username: true});
 				} 
 			});
 		}

@@ -42,6 +42,7 @@ app.post('/logout', function(req, res) {
   req.session.destroy();
   res.send('200', 'Logged out');
 });
+app.post('/register', lunches.register);
 app.post('/findLunchers', lunches.findLunchers);
 
 //Actually show the server
@@ -56,16 +57,5 @@ io.sockets.on('connection', function (socket) {
     });
     	loginSuccessFail = function(_data) {
 			socket.emit('loginFailSuccesss', _data);
-    }
-    socket.on('register', function(data) {
-			lunches.register(data, registerCallback);
-    });
-    registerCallback = function(_data) {
-    	if(_data.success == false)
-    		{
-	    		socket.emit('registrationFail', _data);
-    		} else {
-	    		console.log("Registration must have worked I guess!");
-    		}
     }
 });

@@ -15,7 +15,7 @@ function initialize() {
 		}	else if (officeLocation.getPlaces() == undefined) {
 			formError($('input[name="officeLocation"]'), "We really need where you are during lunch.  We won't tell ANYONE. [Honest!]");
 		} else {
-			socket.emit('register', {
+			$.post('/register', {
 				username: $('input[name="username"]').val(),
 				password: $('input[name="password"]').val(),
 				officeLocation: $('input[name="officeLocation"]').val(),
@@ -25,6 +25,13 @@ function initialize() {
 				bio: $('input[name="bio"]').val(),
 				facebook: $('input[name="facebook"]').val(),
 				twitter: $('input[name="twitter"]').val()
+			}, function(_data) { 
+					$('input').removeClass('error');
+				  if(_data.username == true && _data.success == false) {
+						formError($('input[name="username"]'), "I'm sorry friend! Someone else took that name.  It's a nice name, but I'm sure there's another you can use!");
+				  } else {
+  				  socket.emit('login', {username: $('input[name="username"]').val(), password: $('input[name="password"]').val()}); 
+				  }
 			});
 		}
 	});
@@ -42,13 +49,6 @@ socket.on('loginFailSuccesss', function (_data) {
 		formError($('input[name="password"]'), "Psst. Your passwords off a bit. Don't worry, it's between you and me.");
   }
 });
-
-socket.on('registrationFail', function (_data) {
-  $('input').removeClass('error');
-  if(_data.username == true && _data.success == false) {
-		formError($('input[name="username"]'), "I'm sorry friend! Someone else took that name.  It's a nice name, but I'm sure there's another you can use!");
-  }
-})
 
 var formError = function(_field, _message) {
   _field.addClass('error');
