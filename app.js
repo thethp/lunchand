@@ -6,7 +6,8 @@ var express = require('express'),
     io = require('socket.io').listen(server),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    multer  = require('multer');
 
 //Configure app
 app.use(function (req, res, next) {
@@ -22,14 +23,15 @@ app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 app.use(session({secret: 'Martin C. Brody', key: 'EatLunch'}));
 app.use(bodyParser());
+app.use(multer({dest: __dirname + '/public/uploads/'}));
 
 //Direct Pages
 app.get('/', function (req, res) {
   if(req.session.uid === undefined && req.query.login === "improvboston") {
 		res.render('login');
-		  } else if (req.session.uid === undefined) {
+  } else if (req.session.uid === undefined) {
 		res.render('index_unknown');
-		  } else {
+  } else {
 		res.render('index');
   }
 });

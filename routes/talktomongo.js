@@ -35,6 +35,7 @@ db.open(function(_err, _db) {
 exports.register = function(req, res) {
   var _data = req.body;
 	_data.password = passwordHash.generate(_data.password);
+	var photoStr = (req.files.photo.name == null) ? 'eatlunch.png' : req.files.photo.name;
 	db.collection('lunchers', function(_err, _collection) {  
 		if(_err) {
 			console.log("Shark attack because: "+_err);
@@ -48,7 +49,8 @@ exports.register = function(req, res) {
 				geoJSON: { type : "Point" , coordinates: [ Number(_data.longitude), Number(_data.latitude) ] },
 				bio: _data.bio,
 				facebook: _data.facebook,
-				twitter: _data.twitter
+				twitter: _data.twitter,
+				photo: photoStr
 			};
 			db.collection('lunchers').findOne({username: _data.username}, function(_err, _item) { 
 				if(_err || _item == undefined) {

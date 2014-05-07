@@ -4,10 +4,18 @@ var socket = io.connect('http://eatlun.ch'),
 google.maps.event.addDomListener(window, 'load', initialize);
 function initialize() {
 	officeLocation = new google.maps.places.SearchBox((document.getElementById('pac-input')));
-  $('.submit').on('click', function() {
+	google.maps.event.addListener(officeLocation, 'places_changed', function() {
+  	$('input[name="longitude"]').val(officeLocation.getPlaces()[0].geometry.location.A);
+  	$('input[name="latitude"]').val(officeLocation.getPlaces()[0].geometry.location.k);
+	});
+  
+  $('.login').on('click', function() {
+    event.preventDefault();
   	socket.emit('login', {username: $('input[name="username"]').val(), password: $('input[name="password"]').val()});
   });
+  
   $('.register').on('click', function() {
+    event.preventDefault();
 		if($('input[name="password"]').val() !== $('input[name="passwordConfirm"]').val()) {		
 			formError($('input[name="password"]'), "Oops! One of your passwords isn't the same as the other! Try again!");
 		}  else if ($('input[name="username"]').val() == "") {
@@ -15,26 +23,10 @@ function initialize() {
 		}	else if (officeLocation.getPlaces() == undefined) {
 			formError($('input[name="officeLocation"]'), "We really need where you are during lunch.  We won't tell ANYONE. [Honest!]");
 		} else {
-			$.post('/register', {
-				username: $('input[name="username"]').val(),
-				password: $('input[name="password"]').val(),
-				officeLocation: $('input[name="officeLocation"]').val(),
-				teams: $('input[name="teams"]').val(),
-				longitude: officeLocation.getPlaces()[0].geometry.location.A,
-				latitude: officeLocation.getPlaces()[0].geometry.location.k,
-				bio: $('input[name="bio"]').val(),
-				facebook: $('input[name="facebook"]').val(),
-				twitter: $('input[name="twitter"]').val()
-			}, function(_data) { 
-					$('input').removeClass('error');
-				  if(_data.username == true && _data.success == false) {
-						formError($('input[name="username"]'), "I'm sorry friend! Someone else took that name.  It's a nice name, but I'm sure there's another you can use!");
-				  } else {
-  				  socket.emit('login', {username: $('input[name="username"]').val(), password: $('input[name="password"]').val()}); 
-				  }
-			});
+			$('form').submit();
 		}
 	});
+	
 };
 
 socket.on('loginFailSuccesss', function (_data) {

@@ -9,16 +9,20 @@ html
       h1 Eat Lunch!
     .container
       .main-content
-        input(type='text', name='username', placeholder='Username')
-        input(type='password', name='password',placeholder='Password')
-        button.submit Submit
-        button.register Register
-        input(type='password', name='passwordConfirm',placeholder='Confirm Password')
-        input#pac-input(type='text',name='officeLocation',placeholder='Office Location')
-        input(type='text',name='teams',placeholder='Teams You are on')
-        input(type='text',name='bio',maxlength='140',placeholder='bio')
-        input(type='text',name='twitter',placeholder='twitter')
-        input(type='text',name='facebook',placeholder='facebook')
+        form(method='post',enctype='multipart/form-data',action='/register')
+          input(type='text', name='username', placeholder='Username')
+          input(type='password', name='password',placeholder='Password')
+          button.login Login
+          button.register Register
+          input(type='password', name='passwordConfirm',placeholder='Confirm Password')
+          input#pac-input(type='text',name='officeLocation',placeholder='Office Location')
+          input(type='text',name='teams',placeholder='Teams You are on')
+          input(type='text',name='bio',maxlength='140',placeholder='bio')
+          input(type='text',name='twitter',placeholder='twitter')
+          input(type='text',name='facebook',placeholder='facebook')
+          input(type='file',name='photo')
+          input(type='hidden',name='longitude')
+          input(type='hidden',name='latitude')
         .messageField
   script(src='https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places')
   script(src='/scripts/script.js')
