@@ -59,8 +59,9 @@ exports.register = function(req, res) {
 							console.log("Bad Jaws! He attacked a luncher again! " + _err);
 							res.send(_err);
 						} else {
-							console.log("Wild success inserting luncher");
-							res.send({success: true});
+							console.log("Wild success inserting luncher: "+_result[0._id];
+							req.session.uid = _result[0]._id;
+							res.redirect('/');
 						}
 					});
 				} else {

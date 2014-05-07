@@ -12,7 +12,7 @@ html
   script(src='/externals/handlebars.js')
   <script id="profile" type="text/x-handlebars-template">
   .profile
-    .profilePicture{{#if photo}}(style='background-image: url(/uploads/{{photo}})'){{/if}}
+    <div class="profilePicture" {{#if photo}}(style='background-image: url(/uploads/{{photo}})'){{/if}}></div>
     .content
       .name {{username}} - 
         span.distance {{distance}}mi
