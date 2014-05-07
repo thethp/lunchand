@@ -17,9 +17,9 @@ function initialize() {
   $('.register').on('click', function() {
     event.preventDefault();
     if ($('input[name="password"]').val() == "" && $('input[name="passwordConfirm"]').val() == "") {
-      formError('.passwords'), "I mean. I hatee to be a jerk. But like. How do you see this working without a password?");
+      formError($('.passwords'), "I mean. I hate to be a jerk. But like. How do you see this working without a password?");
     } else if($('input[name="password"]').val() !== $('input[name="passwordConfirm"]').val()) {		
-			formError('.passwords'), "Oops! One of your passwords isn't the same as the other! Try again!");
+			formError($('.passwords'), "Oops! One of your passwords isn't the same as the other! Try again!");
 		}  else if ($('input[name="username"]').val() == "") {
 			formError($('input[name="username"]'), "Whoa there, friend.  Can't sign up without a username.");
 		}	else if (officeLocation.getPlaces() == undefined) {

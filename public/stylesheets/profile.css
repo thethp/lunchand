@@ -7,6 +7,12 @@ body, html {
   background-color: #F1FCAD;
   color: #5C493D;
 }
+.heretheyare {
+  display: none;
+}
+.nobodyshere {
+  display: none;
+}
 .profile {
   background-color: #FAF9F8;
   padding: 15px;

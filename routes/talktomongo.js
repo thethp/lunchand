@@ -59,7 +59,7 @@ exports.register = function(req, res) {
 							console.log("Bad Jaws! He attacked a luncher again! " + _err);
 							res.send(_err);
 						} else {
-							console.log("Wild success inserting luncher: "+_result[0._id];
+							console.log("Wild success inserting luncher: "+_result[0]._id);
 							req.session.uid = _result[0]._id;
 							res.redirect('/');
 						}
@@ -123,7 +123,7 @@ exports.findLunchers = function(req, res) {
 					res.send(undefined);
 				} else {
 					console.log('Attained Users GEOJSON at: '+ _item.geoJSON +', attempting to find close users');
-					db.collection('lunchers').find({geoJSON:{ $near: {$geometry: _item.geoJSON, $maxDistance: 800}}}, {pwd: 0, geoJSON: 0, officeLocation: 0}).toArray(function(err, items){
+					db.collection('lunchers').find({geoJSON:{ $near: {$geometry: _item.geoJSON, $maxDistance: 1610}}}, {pwd: 0, geoJSON: 0, officeLocation: 0}).toArray(function(err, items){
 																							if(err) {
 																								console.log("Error finding items");
 																								res.send(undefined);
