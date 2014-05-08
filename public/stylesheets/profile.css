@@ -49,6 +49,9 @@ body, html {
   font-size: 28px;
   margin-bottom: 5px;
 }
+.teams {
+  margin-top: 10px;
+}
 .facebook {
   width: 25px;
   height: 25px;

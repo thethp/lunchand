@@ -25,4 +25,7 @@ html
         a.twitter(href='http://twitter.com/{{twitter}}')
         {{/if}}
       .bio {{bio}}
+      {{if #teams}}
+      .teams <strong>Teams:</strong> {{teams}} 
+      {{/if}}
   </script>
