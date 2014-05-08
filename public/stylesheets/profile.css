@@ -7,13 +7,26 @@ body, html {
   background-color: #F1FCAD;
   color: #5C493D;
 }
+.logo.index {    
+  width: 80px;
+  height: 80px;
+  border: 10px solid #D3F7E9;
+  display: block;
+  padding-bottom: 0px;
+  margin: 10px auto;
+}
 .heretheyare {
   display: none;
+  color: #5C493D;
 }
 .nobodyshere {
   display: none;
 }
-.profile {
+.lunchers {
+  width: 90%;
+  margin: 0 auto;
+}
+.profile,.nobodyshere {
   background-color: #FAF9F8;
   padding: 15px;
   height: 150px;

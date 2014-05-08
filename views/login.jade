@@ -1,28 +1,32 @@
 doctype html
 html
   head
-    title #{title} - Eat Lunch!
+    title Register - Eat Lunch!
+    meta(name='viewport', content='width=device-width') 
     link(rel='stylesheet', href='/stylesheets/style.css')
     include includes
   body
-    header
-      h1 Eat Lunch!
-    .container
+    header.register
+      .logo.register
+      h1.register Hi Friend! Let's Eat Lunch!
+    .container.register
       .main-content
-        form(method='post',enctype='multipart/form-data',action='/register')
-          input(type='text', name='username', placeholder='Username')
-          input.passwords(type='password', name='password',placeholder='Password')
+      form(method='post',enctype='multipart/form-data',action='/register')
+        input(type='text', name='username', placeholder='Username')
+        input.passwords(type='password', name='password',placeholder='Password')
+        input.passwords(type='password', name='passwordConfirm',placeholder='Confirm Password',class='registerInput')
+        input#pac-input(type='text',name='officeLocation',placeholder='Office Location [where you are at lunch]',class='registerInput')
+        input(type='text',name='teams',placeholder='Improv Teams You are on',class='registerInput')
+        input(type='text',name='bio',maxlength='140',placeholder='Profile - 140 characters max',class='registerInput')
+        input.social(type='text',name='twitter',placeholder='twitter',class='registerInput')
+        input.social(type='text',name='facebook',placeholder='facebook',class='registerInput')
+        input(type='file',name='photo',class='registerInput uploadfile')
+        input(type='hidden',name='longitude')
+        input(type='hidden',name='latitude')
+        .messageField
+        .buttonHolder
           button.login Login
           button.register Register
-          input.passwords(type='password', name='passwordConfirm',placeholder='Confirm Password')
-          input#pac-input(type='text',name='officeLocation',placeholder='Office Location')
-          input(type='text',name='teams',placeholder='Teams You are on')
-          input(type='text',name='bio',maxlength='140',placeholder='bio')
-          input.social(type='text',name='twitter',placeholder='twitter')
-          input.social(type='text',name='facebook',placeholder='facebook')
-          input(type='file',name='photo')
-          input(type='hidden',name='longitude')
-          input(type='hidden',name='latitude')
-        .messageField
+          button.active.register Register
   script(src='https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places')
   script(src='/scripts/script.js')

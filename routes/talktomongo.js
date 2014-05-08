@@ -65,7 +65,7 @@ exports.register = function(req, res) {
 						}
 					});
 				} else {
-					res.send({success: false, username: true});
+					res.redirect('/?login=improvboston&username=bad');
 				} 
 			});
 		}

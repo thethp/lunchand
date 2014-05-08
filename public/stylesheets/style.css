@@ -1,12 +1,78 @@
-body, html {                                                                                       
-  font-family: helvetica, arial, sans-serif;                                                         
-  text-align: center;
+* {
+  position: relative;
+}
+body, html {
+  font-family: helvetica, arial, sans-serif;
   background: #F1FCAD;
-}                                                                                                    
-h1, h2 {                                                                                             
-  color: #DE4537;                                                                                    
-}                                                                                                    
-.logo {                                                                                              
+  text-align: center;
+}
+.container.register {
+  width: 60%;
+  margin: 0 auto;
+}
+input {
+  width:100%;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 20px;
+  display: block;
+  margin-bottom: 10px;
+  border: 2px solid #FA7F46;
+  color: #5C493D;
+  background-color: #FAF9F8;
+}
+input[type='file'] {
+  cursor: pointer;
+}
+input[type='file']:after {
+  position: absolute;
+  content: "Upload a Photo";
+  width: 100%;
+  height: 100%;
+  background-color: #FAF9F8;
+  left: 0;
+  top: 0;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+}
+.buttonHolder {
+  padding-left: 8%;
+}
+button {
+  width: 49%;
+  padding: 15px;
+  border-radius: 20px;
+  background-color: #60C0A8;
+  border: 2px solid #5C493D;
+  font-size: 20px;
+  color: #FFF;
+  text-shadow: 1px 1px #5C493D;
+  cursor: pointer;
+}
+button.login {
+  margin-right: 2%;
+}
+button.active.register {
+  display: none;
+}
+header.register {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+h1, h2 {
+  color: #DE4537;
+}
+h1.register {
+  display: inline-block;
+  top: -39px;
+  margin-left: 15px;
+}
+.logo {
   width: 33%;                                                                                        
   padding-bottom: 33%;                                                                               
   border: 20px solid #D3F7E9;                                                                        
@@ -14,8 +80,55 @@ h1, h2 {
   border-radius: 100%;                                                                               
   background: url(../images/eatlunch.png) #FA7F46 no-repeat center center;                              
   background-size: 80% 80%;                                                                          
-  margin: 0 auto;                                                                                    
+  margin: 0 auto;
+}
+.logo.register {    
+  width: 80px;
+  height: 80px;
+  border: 10px solid #D3F7E9;
+  display: inline-block;
+  padding-bottom: 0px;
 }
 .error {
-    border: 3px solid #900;
+  border: 5px solid #DE4537;
+  color: #DE4537;
+}
+.messageField {
+  width: 100%;
+  background-color: #DE4537;
+  border: 2px solid #D3F7E9;
+  color: #FFF;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: none;
+}
+.registerInput {
+  display: none;
+}
+form.registration .registerInput {
+  display: block;
+}
+form.registration button.login {
+  display: none;
+}
+form.registration button.register {
+  display: none;
+}
+form.registration button.active.register {
+  width: 100%;
+  display: block;
+}
+@media all and (max-width: 670px) {
+  h1.register {
+    top: -20px;
+    margin-bottom: -20px
+  } 
+}
+@media all and (max-width: 560px) {
+  h1.register {
+    font-size: 23px;
+  } 
+  .container.register {
+    width: 80%;
+  }
 }

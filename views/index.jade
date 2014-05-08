@@ -4,8 +4,10 @@ html
     title #{title} Eat Lunch!
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/profile.css')
+    meta(name='viewport', content='width=device-width') 
   body
-    div.heretheyare Here's the people within a mile:
+    .logo.index
+    h1.heretheyare Here's the people within a mile:
     div.nobodyshere Nobody eats lunch within a mile of you yet! Check back soon, Hopefully there will be some more lunchers then!
     div.lunchers
     button.logout logout
@@ -14,7 +16,7 @@ html
   script(src='/externals/handlebars.js')
   <script id="profile" type="text/x-handlebars-template">
   .profile
-    <div class="profilePicture" {{#if photo}}(style='background-image: url(/uploads/{{photo}})'){{/if}}></div>
+    <div class="profilePicture" {{#if photo}}style='background-image: url(/uploads/{{photo}})'){{/if}}></div>
     .content
       .name {{username}} - 
         span.distance {{distance}}mi
@@ -25,7 +27,7 @@ html
         a.twitter(href='http://twitter.com/{{twitter}}')
         {{/if}}
       .bio {{bio}}
-      {{if #teams}}
+      {{#if teams}}
       .teams <strong>Teams:</strong> {{teams}} 
       {{/if}}
   </script>

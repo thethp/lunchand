@@ -14,8 +14,14 @@ function initialize() {
   	socket.emit('login', {username: $('input[name="username"]').val(), password: $('input[name="password"]').val()});
   });
   
-  $('.register').on('click', function() {
+  $('button.register').on('click', function() {
     event.preventDefault();
+    $('form').addClass('registration');
+  });
+  $('button.active.register').on('click', function() {
+    event.preventDefault();
+    $('input').removeClass('error');
+    $('.messageField').hide();
     if ($('input[name="password"]').val() == "" && $('input[name="passwordConfirm"]').val() == "") {
       formError($('.passwords'), "I mean. I hate to be a jerk. But like. How do you see this working without a password?");
     } else if($('input[name="password"]').val() !== $('input[name="passwordConfirm"]').val()) {		
@@ -25,7 +31,7 @@ function initialize() {
 		}	else if (officeLocation.getPlaces() == undefined) {
 			formError($('input[name="officeLocation"]'), "We really need where you are during lunch.  We won't tell ANYONE. [Honest!]");
 		} else if ($('input[name="twitter"]').val() == "" && $('input[name="facebook"]').val() == "") {
-		  formError($('.social'), "Soon we will have our own messaging system and do away with facebook/twitter links entirely, but for right now it's your only way of getting in touch!");
+		  formError($('.social'), "Soon we will have our own messaging system and do away with facebook/twitter links entirely, but for right now it's your only way of getting in touch!  We just need ONE of these.");
 		} else {
 			$('form').submit();
 		}
@@ -35,6 +41,7 @@ function initialize() {
 
 socket.on('loginFailSuccesss', function (_data) {
   $('input').removeClass('error');
+  $('.messageField').hide();
   if(_data.success == true) {
 		$.post('/login', {uid: _data.userID}, function(){window.location='/';});
 		return;

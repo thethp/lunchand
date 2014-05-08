@@ -28,7 +28,11 @@ app.use(multer({dest: __dirname + '/public/uploads/'}));
 //Direct Pages
 app.get('/', function (req, res) {
   if(req.session.uid === undefined && req.query.login === "improvboston") {
-		res.render('login');
+    if(req.query.username !== 'bad') {
+      res.render('login');
+    } else {
+      res.render('login_badun');
+    }
   } else if (req.session.uid === undefined) {
 		res.render('index_unknown');
   } else {
@@ -40,7 +44,6 @@ app.post('/login', function(req, res) {
   res.send('200', 'Logged in');
 });
 app.post('/logout', function(req, res) {
-  console.log('Yes');
   req.session.destroy();
   res.send('200', 'Logged out');
 });
